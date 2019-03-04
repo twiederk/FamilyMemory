@@ -15,10 +15,10 @@ internal class GameRendererCreateTest {
     fun `create stage`() {
 
         // Arrange
-
         Gdx.graphics = mock()
+        Gdx.input = mock()
         val stage: Stage = mock()
-        whenever(imageFactory.createImage(any())).thenReturn(mock())
+        whenever(imageFactory.createDrawable(any())).thenReturn(mock())
 
         // Act
         underTest.create(stage)

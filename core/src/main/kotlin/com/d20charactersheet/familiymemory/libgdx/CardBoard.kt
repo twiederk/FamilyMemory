@@ -16,9 +16,11 @@ class CardBoard(familyMemoryGame: FamilyMemoryGame, private val imageFactory: Im
     }
 
     private fun createImageCards(familyMemoryGame: FamilyMemoryGame) {
+        val backDrawable = imageFactory.createDrawable("0_${cardBoardConfig.cardSize}.jpg")
         imageCards = familyMemoryGame.cards
-                .map { ImageCard(it, imageFactory.createImage("${it.imageId}_${cardBoardConfig.cardSize}.jpg")) }
+                .map { ImageCard(it, imageFactory.createDrawable("${it.imageId}_${cardBoardConfig.cardSize}.jpg"), backDrawable) }
                 .toMutableList()
+        imageCards.forEach { it.addListener(CardClickListener(it)) }
     }
 
     private fun arrangeImageCards() {
@@ -28,9 +30,8 @@ class CardBoard(familyMemoryGame: FamilyMemoryGame, private val imageFactory: Im
                 val col = i % numberOfColumns
                 val row = i / numberOfColumns
 
-                val image = imageCards[i].image
-                image.x = margin + ((cardSize + spacing) * col)
-                image.y = margin + ((cardSize + spacing) * row)
+                imageCards[i].image.x = margin + ((cardSize + spacing) * col)
+                imageCards[i].image.y = margin + ((cardSize + spacing) * row)
 
 
             }

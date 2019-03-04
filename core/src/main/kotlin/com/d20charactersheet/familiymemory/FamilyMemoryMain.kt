@@ -4,9 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.d20charactersheet.familiymemory.libgdx.GameRenderer
 import com.d20charactersheet.familiymemory.libgdx.ImageFactory
 
-class FamilyMemoryMain : ApplicationAdapter() {
-
-    private val gameRenderer = GameRenderer(ImageFactory())
+class FamilyMemoryMain(private val gameRenderer: GameRenderer = GameRenderer(ImageFactory())) : ApplicationAdapter() {
 
     override fun create() {
         gameRenderer.create()

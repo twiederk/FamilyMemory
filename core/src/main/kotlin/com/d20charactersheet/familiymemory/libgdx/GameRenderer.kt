@@ -21,6 +21,7 @@ class GameRenderer(private val imageFactory: ImageFactory) {
     private fun buildStage(cardBoard: CardBoard, stage: Stage) {
         this.stage = stage
         cardBoard.imageCards.forEach { stage.addActor(it.image) }
+        Gdx.input.inputProcessor = stage
     }
 
 

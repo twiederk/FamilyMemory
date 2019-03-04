@@ -1,8 +1,10 @@
 package com.d20charactersheet.familiymemory.libgdx
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 import com.d20charactersheet.familiymemory.domain.FamilyMemoryGame
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -10,12 +12,12 @@ import java.util.*
 
 class CardBoardTest {
 
-    private val imageMock: Image = mock()
+    private val drawableMock: Drawable = mock()
     private val imageFactory: ImageFactory = mock()
 
     @BeforeEach
     fun setUp() {
-        whenever(imageFactory.createImage(any())).thenReturn(imageMock)
+        whenever(imageFactory.createDrawable(any())).thenReturn(drawableMock)
     }
 
 
@@ -27,18 +29,17 @@ class CardBoardTest {
 
         // Assert
         assertThat(cardBoard.imageCards).hasSize(2)
+        val firstImageCard = cardBoard.imageCards[0]
+        assertThat(firstImageCard.front).isEqualTo(drawableMock)
+        assertThat(firstImageCard.back).isEqualTo(drawableMock)
+        assertThat(firstImageCard.image.x).isEqualTo(32.0f)
+        assertThat(firstImageCard.image.y).isEqualTo(32.0f)
 
-        argumentCaptor<Float> {
-            verify(imageMock, times(2)).setX(capture())
-            assertThat(firstValue).isEqualTo(32.0f)
-            assertThat(secondValue).isEqualTo(184.0f)
-        }
-
-        argumentCaptor<Float> {
-            verify(imageMock, times(2)).setY(capture())
-            assertThat(firstValue).isEqualTo(32.0f)
-            assertThat(secondValue).isEqualTo(32.0f)
-        }
+        val secondImageCard = cardBoard.imageCards[1]
+        assertThat(secondImageCard.front).isEqualTo(drawableMock)
+        assertThat(secondImageCard.back).isEqualTo(drawableMock)
+        assertThat(secondImageCard.image.x).isEqualTo(184.0f)
+        assertThat(secondImageCard.image.y).isEqualTo(32.0f)
 
     }
 
@@ -51,20 +52,15 @@ class CardBoardTest {
         // Assert
         assertThat(cardBoard.imageCards).hasSize(4)
 
-        argumentCaptor<Float> {
-            verify(imageMock, times(4)).setX(capture())
-            assertThat(allValues[0]).isEqualTo(32.0f)
-            assertThat(allValues[1]).isEqualTo(184.0f)
-            assertThat(allValues[2]).isEqualTo(32.0f)
-            assertThat(allValues[3]).isEqualTo(184.0f)
-        }
-
-        argumentCaptor<Float> {
-            verify(imageMock, times(4)).setY(capture())
-            assertThat(allValues[0]).isEqualTo(32.0f)
-            assertThat(allValues[1]).isEqualTo(32.0f)
-            assertThat(allValues[2]).isEqualTo(184.0f)
-            assertThat(allValues[3]).isEqualTo(184.0f)
+        with(cardBoard) {
+            assertThat(imageCards[0].image.x).isEqualTo(32.0f)
+            assertThat(imageCards[0].image.y).isEqualTo(32.0f)
+            assertThat(imageCards[1].image.x).isEqualTo(184.0f)
+            assertThat(imageCards[1].image.y).isEqualTo(32.0f)
+            assertThat(imageCards[2].image.x).isEqualTo(32.0f)
+            assertThat(imageCards[2].image.y).isEqualTo(184.0f)
+            assertThat(imageCards[3].image.x).isEqualTo(184.0f)
+            assertThat(imageCards[3].image.y).isEqualTo(184.0f)
         }
 
     }
