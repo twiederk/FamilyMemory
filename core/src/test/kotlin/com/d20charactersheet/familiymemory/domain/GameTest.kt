@@ -8,14 +8,12 @@ internal class GameTest {
     @Test
     internal fun `construct game`() {
         // Act
-        val game = FamilyMemoryGame()
+        val familyMemoryGame = FamilyMemoryGame()
 
         // Assert
-        val cards = game.cards
-        assertThat(cards).hasSize(2)
-        assertThat(cards[0].imageId).isEqualTo(1)
-        assertThat(cards[1].imageId).isEqualTo(1)
-
+        assertThat(familyMemoryGame.getCards()).hasSize(2)
+        assertThat(familyMemoryGame.getCards()[0].imageId).isEqualTo(1)
+        assertThat(familyMemoryGame.getCards()[1].imageId).isEqualTo(1)
     }
 
 }

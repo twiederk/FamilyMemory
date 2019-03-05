@@ -10,13 +10,14 @@ internal class CardClickListenerTest {
     @Test
     fun clicked() {
         // Arrange
+        val gameRenderer: GameRenderer = mock()
         val imageCard: ImageCard = mock()
-        val cardClickListener = CardClickListener(imageCard)
+        val cardClickListener = CardClickListener(gameRenderer, imageCard)
 
         // Act
         cardClickListener.clicked(mock(), 0.0f, 0.0f)
 
         // Assert
-        verify(imageCard, only()).flip()
+        verify(gameRenderer, only()).flip(imageCard)
     }
 }

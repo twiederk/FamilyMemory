@@ -5,29 +5,45 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.d20charactersheet.familiymemory.domain.FamilyMemoryGame
 
-class GameRenderer(private val imageFactory: ImageFactory) {
+class GameRenderer(private val familyMemoryGame: FamilyMemoryGame = FamilyMemoryGame(), private val imageFactory: ImageFactory) {
 
     internal lateinit var stage: Stage
+    internal var imageCards = mutableListOf<ImageCard>()
+
 
     fun create(stage: Stage = Stage()) {
-        val familyMemoryGame = FamilyMemoryGame(4)
-        val cardBoard = CardBoard(familyMemoryGame, imageFactory)
-        buildStage(cardBoard, stage)
+        buildImageCards()
+        buildStage(stage)
 
         Gdx.graphics.isContinuousRendering = false
         Gdx.graphics.requestRendering()
     }
 
-    private fun buildStage(cardBoard: CardBoard, stage: Stage) {
+
+    private fun buildImageCards() {
+        val cardSize = familyMemoryGame.getCardSize()
+        val backDrawable = imageFactory.createDrawable("0_$cardSize.jpg")
+        imageCards = familyMemoryGame.getCards()
+                .map { ImageCard(familyMemoryGame, it, imageFactory.createDrawable("${it.imageId}_$cardSize.jpg"), backDrawable) }
+                .toMutableList()
+        imageCards.forEach { it.image.addListener(CardClickListener(this, it)) }
+    }
+
+    private fun buildStage(stage: Stage) {
         this.stage = stage
-        cardBoard.imageCards.forEach { stage.addActor(it.image) }
+        imageCards.forEach { stage.addActor(it.image) }
         Gdx.input.inputProcessor = stage
     }
 
 
     fun render() {
+        updateGame()
         clearScreen()
         renderScene()
+    }
+
+    private fun updateGame() {
+        familyMemoryGame.match().ifPresent { imageCards.forEach { it.update() } }
     }
 
     private fun clearScreen() {
@@ -42,6 +58,12 @@ class GameRenderer(private val imageFactory: ImageFactory) {
 
     fun dispose() {
         stage.dispose()
+    }
+
+    fun flip(imageCard: ImageCard) {
+        if (imageCards.flatMap { it.image.actions }.isEmpty()) {
+            imageCard.flip()
+        }
     }
 
 }

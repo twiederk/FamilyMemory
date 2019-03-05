@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 internal class GameRendererDisposeTest {
 
-    private val underTest = GameRenderer(mock())
+    private val underTest = GameRenderer(mock(), mock())
 
     @Test
     fun `dispose resources`() {

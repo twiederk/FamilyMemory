@@ -13,6 +13,7 @@ internal class CardTest {
         // Assert
         assertThat(card.imageId).isNotNull()
         assertThat(card.face).isEqualTo(Face.Back)
+        assertThat(card.state).isEqualTo(CardState.OnBoard)
     }
 
     @Test
