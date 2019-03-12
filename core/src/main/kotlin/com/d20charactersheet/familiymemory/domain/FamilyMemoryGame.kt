@@ -4,6 +4,7 @@ import java.util.*
 
 class FamilyMemoryGame(numberOfImages: Int = 1, cardBoardConfig: CardBoardConfig = CardBoardConfig()) {
     private val cardBoard = CardBoard(numberOfImages, cardBoardConfig)
+    var numberOfTries = 0
 
     fun match(): Optional<Pair<Card, Card>> {
         val frontFaceCards = cardBoard.cards.filter { it.face == Face.Front && it.state == CardState.OnBoard }.toList()
@@ -15,6 +16,7 @@ class FamilyMemoryGame(numberOfImages: Int = 1, cardBoardConfig: CardBoardConfig
                 frontFaceCards[0].face = Face.Back
                 frontFaceCards[1].face = Face.Back
             }
+            numberOfTries++
             return Optional.of(Pair(frontFaceCards[0], frontFaceCards[1]))
         }
         return Optional.empty()
@@ -31,6 +33,10 @@ class FamilyMemoryGame(numberOfImages: Int = 1, cardBoardConfig: CardBoardConfig
             return true
         }
         return false
+    }
+
+    fun memoryCompleted(): Boolean {
+        return cardBoard.cards.filter { it.state == CardState.OnBoard }.isEmpty()
     }
 
 

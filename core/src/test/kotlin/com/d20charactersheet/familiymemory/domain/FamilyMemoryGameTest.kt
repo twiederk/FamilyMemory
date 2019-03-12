@@ -6,6 +6,18 @@ import org.junit.jupiter.api.Test
 
 internal class FamilyMemoryGameTest {
 
+    @Test
+    fun init() {
+        // Arrange
+
+        // Act
+        val familyMemoryGame = FamilyMemoryGame()
+
+        // Assert
+        assertThat(familyMemoryGame.getCards()).hasSize(2)
+        assertThat(familyMemoryGame.getCardSize()).isEqualTo(128)
+    }
+
     @Nested
     inner class MatchingCards {
 
@@ -163,5 +175,41 @@ internal class FamilyMemoryGameTest {
         }
 
     }
+
+    @Nested
+    inner class CountingTries() {
+
+        @Test
+        fun `count try if cards match`() {
+            // Arrange
+            val familyMemoryGame = FamilyMemoryGame(1)
+            familyMemoryGame.getCards().forEach { it.flip() }
+
+            // Act
+            val match = familyMemoryGame.match()
+
+            // Assert
+            assertThat(match).isNotEmpty
+            assertThat(familyMemoryGame.numberOfTries).isEqualTo(1)
+            assertThat(familyMemoryGame.memoryCompleted()).isTrue()
+        }
+
+        @Test
+        fun `count try if cards not match`() {
+            // Arrange
+            val familyMemoryGame = FamilyMemoryGame(2)
+            familyMemoryGame.getCards().first { it.imageId == 1 }.flip()
+            familyMemoryGame.getCards().first { it.imageId == 2 }.flip()
+
+            // Act
+            val match = familyMemoryGame.match()
+
+            // Assert
+            assertThat(match).isNotEmpty
+            assertThat(familyMemoryGame.numberOfTries).isEqualTo(1)
+            assertThat(familyMemoryGame.memoryCompleted()).isFalse()
+        }
+    }
+
 
 }
