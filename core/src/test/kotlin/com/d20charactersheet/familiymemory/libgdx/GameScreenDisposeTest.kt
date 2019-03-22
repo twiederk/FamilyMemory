@@ -4,14 +4,13 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.jupiter.api.Test
 
-internal class GameRendererDisposeTest {
-
-    private val underTest = GameRenderer(mock(), mock())
+internal class GameScreenDisposeTest {
 
     @Test
     fun `dispose resources`() {
 
         // Arrange
+        val underTest = GameScreen()
         underTest.stage = mock()
 
         // Act

@@ -1,21 +1,21 @@
 package com.d20charactersheet.familiymemory
 
-import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Game
 import com.d20charactersheet.familiymemory.domain.FamilyMemoryGame
-import com.d20charactersheet.familiymemory.libgdx.GameRenderer
-import com.d20charactersheet.familiymemory.libgdx.ImageFactory
+import com.d20charactersheet.familiymemory.libgdx.GameScreen
+import com.d20charactersheet.familiymemory.libgdx.LibGDXFactory
 
-class FamilyMemoryMain(private val gameRenderer: GameRenderer = GameRenderer(FamilyMemoryGame(), ImageFactory())) : ApplicationAdapter() {
+class FamilyMemoryMain(private val libGDXFactory: LibGDXFactory = LibGDXFactory()) : Game() {
+
+    internal var gameScreen: GameScreen? = null
 
     override fun create() {
-        gameRenderer.create()
-    }
-
-    override fun render() {
-        gameRenderer.render()
+        gameScreen = gameScreen ?: GameScreen(FamilyMemoryGame(4), libGDXFactory)
+        setScreen(gameScreen)
     }
 
     override fun dispose() {
-        gameRenderer.dispose()
+        gameScreen?.dispose()
     }
+
 }

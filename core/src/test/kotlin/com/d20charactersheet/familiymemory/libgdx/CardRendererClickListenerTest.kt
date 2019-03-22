@@ -9,16 +9,15 @@ import com.nhaarman.mockitokotlin2.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class GameRendererClickListenerTest {
+internal class CardRendererClickListenerTest {
 
     @Test
     fun `no action is running = flip`() {
         // Arrange
         val imageCard: ImageCard = mock()
-        val underTest = GameRenderer(mock(), mock())
 
         // Act
-        underTest.flip(imageCard)
+        CardRenderer(mock()).flip(imageCard)
 
         // Assert
         verify(imageCard, only()).flip()
@@ -32,7 +31,7 @@ internal class GameRendererClickListenerTest {
         val back: Drawable = mock()
         val imageCard = ImageCard(familyMemoryGame, card, mock(), back)
         imageCard.image.actions.add(mock())
-        val underTest = GameRenderer(familyMemoryGame, mock())
+        val underTest = CardRenderer(mock())
         underTest.imageCards = mutableListOf(imageCard)
 
         // Act
