@@ -52,7 +52,7 @@ class GameScreen(internal var familyMemoryGame: FamilyMemoryGame = FamilyMemoryG
     }
 
     private fun clearScreen() {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
+        Gdx.gl.glClearColor(0.33f, 0.33f, 0.81f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 

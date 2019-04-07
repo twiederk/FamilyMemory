@@ -20,21 +20,23 @@ internal class GameScreenCreateTest {
     private val memoryCompletedMock: Label = mock()
     private val newGame: TextButton = mock()
     private val stageMock: Stage = mock()
-    private val libGDXFactory: LibGDXFactory = mock(defaultAnswer = RETURNS_DEEP_STUBS)
+    private val libGDXFactory: LibGDXFactory = mock(defaultAnswer = RETURNS_DEEP_STUBS) {
+        on { createDrawable(any()) }.thenReturn(drawableMock)
+        on { createLabel(eq("Number of tries: 0"), any()) }.thenReturn(numberOfTriesMock)
+        on { createLabel(eq("Memory Completed!!!"), any()) }.thenReturn(memoryCompletedMock)
+        on { createTextButton(eq("New Game"), any(), eq("small")) }.thenReturn(newGame)
+        on { createStage() }.thenReturn(stageMock)
+
+    }
 
     @BeforeEach
     fun setUp() {
         Gdx.input = mock()
         Gdx.files = mock()
-        Gdx.graphics = mock()
-        whenever(Gdx.graphics.width).thenReturn(480)
-        whenever(Gdx.graphics.height).thenReturn(800)
-
-        whenever(libGDXFactory.createDrawable(any())).thenReturn(drawableMock)
-        whenever(libGDXFactory.createLabel(eq("Number of tries: 0"), any())).thenReturn(numberOfTriesMock)
-        whenever(libGDXFactory.createLabel(eq("Memory Completed!!!"), any())).thenReturn(memoryCompletedMock)
-        whenever(libGDXFactory.createTextButton(eq("New Game"), any(), eq("small"))).thenReturn(newGame)
-        whenever(libGDXFactory.createStage()).thenReturn(stageMock)
+        Gdx.graphics = mock {
+            on { width }.thenReturn(480)
+            on { height }.thenReturn(800)
+        }
     }
 
 

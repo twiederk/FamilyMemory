@@ -8,7 +8,6 @@ import com.d20charactersheet.familiymemory.domain.CardState
 import com.d20charactersheet.familiymemory.domain.FamilyMemoryGame
 import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -29,11 +28,12 @@ internal class GameScreenRenderTest {
 
         val back: Drawable = mock()
         val front: Drawable = mock()
-        val libGDXFactory: LibGDXFactory = mock()
-        whenever(libGDXFactory.createDrawable("0_128.jpg")).thenReturn(back)
-        whenever(libGDXFactory.createDrawable("1_128.jpg")).thenReturn(front)
-        whenever(libGDXFactory.createDrawable("2_128.jpg")).thenReturn(front)
-        whenever(libGDXFactory.createDrawable("3_128.jpg")).thenReturn(front)
+        val libGDXFactory: LibGDXFactory = mock {
+            on { createDrawable("0_128.jpg") }.thenReturn(back)
+            on { createDrawable("1_128.jpg") }.thenReturn(front)
+            on { createDrawable("2_128.jpg") }.thenReturn(front)
+            on { createDrawable("3_128.jpg") }.thenReturn(front)
+        }
 
         underTest = GameScreen(familyMemoryGame)
         underTest.libGDXFactory = libGDXFactory
