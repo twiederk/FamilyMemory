@@ -24,8 +24,6 @@ class FamilyMemoryGame(numberOfImages: Int = 1, cardBoardConfig: CardBoardConfig
 
     fun getCards() = cardBoard.cards
 
-    fun getCardSize() = cardBoard.cardBoardConfig.cardSize
-
     fun flip(card: Card): Boolean {
         if (card.face == Face.Back &&
                 cardBoard.cards.filter { it.face == Face.Front && it.state == CardState.OnBoard }.count() < 2) {

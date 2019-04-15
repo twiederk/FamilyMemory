@@ -77,10 +77,10 @@ internal class GameScreenCreateTest {
     }
 
     private fun assertImageCards(underTest: GameScreen) {
-        assertImageCard(underTest.cardRenderer.imageCards[0], 32f, 32f)
-        assertImageCard(underTest.cardRenderer.imageCards[1], 184f, 32f)
-        assertImageCard(underTest.cardRenderer.imageCards[2], 32f, 184f)
-        assertImageCard(underTest.cardRenderer.imageCards[3], 184f, 184f)
+        assertImageCard(underTest.imageCards.imageCards[0], 32f, 32f)
+        assertImageCard(underTest.imageCards.imageCards[1], 184f, 32f)
+        assertImageCard(underTest.imageCards.imageCards[2], 32f, 184f)
+        assertImageCard(underTest.imageCards.imageCards[3], 184f, 184f)
     }
 
     private fun assertImageCard(imageCard: ImageCard, x: Float, y: Float) {

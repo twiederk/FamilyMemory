@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.mock
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class CardRendererTest {
+internal class ImageCardsTest {
 
     @Test
     fun restart() {
@@ -14,7 +14,7 @@ internal class CardRendererTest {
         val libGDXFactory: LibGDXFactory = mock() {
             on { createDrawable(any()) }.thenReturn(mock())
         }
-        val underTest = CardRenderer(libGDXFactory)
+        val underTest = ImageCards(mock(), libGDXFactory)
 
         // Act
         underTest.restart(FamilyMemoryGame(4), mock())

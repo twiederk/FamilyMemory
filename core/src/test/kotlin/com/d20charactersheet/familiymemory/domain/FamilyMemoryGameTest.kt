@@ -15,7 +15,6 @@ internal class FamilyMemoryGameTest {
 
         // Assert
         assertThat(familyMemoryGame.getCards()).hasSize(2)
-        assertThat(familyMemoryGame.getCardSize()).isEqualTo(128)
     }
 
     @Nested

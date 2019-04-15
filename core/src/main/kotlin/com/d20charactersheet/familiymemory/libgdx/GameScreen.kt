@@ -10,7 +10,7 @@ import com.d20charactersheet.familiymemory.domain.FamilyMemoryGame
 class GameScreen(internal var familyMemoryGame: FamilyMemoryGame = FamilyMemoryGame()) : Screen {
 
     internal lateinit var menuRenderer: MenuRenderer
-    internal lateinit var cardRenderer: CardRenderer
+    internal lateinit var imageCards: ImageCards
 
     internal lateinit var libGDXFactory: LibGDXFactory
     internal lateinit var stage: Stage
@@ -20,9 +20,8 @@ class GameScreen(internal var familyMemoryGame: FamilyMemoryGame = FamilyMemoryG
     constructor(familyMemoryGame: FamilyMemoryGame = FamilyMemoryGame(), libGDXFactory: LibGDXFactory) : this(familyMemoryGame) {
         this.libGDXFactory = libGDXFactory
         this.menuRenderer = MenuRenderer(libGDXFactory)
-        this.cardRenderer = CardRenderer(libGDXFactory)
+        this.imageCards = ImageCards(familyMemoryGame, libGDXFactory)
 
-        cardRenderer.buildImageCards(familyMemoryGame)
         menuRenderer.buildGUI(this)
         buildStage()
 
@@ -32,7 +31,7 @@ class GameScreen(internal var familyMemoryGame: FamilyMemoryGame = FamilyMemoryG
 
     private fun buildStage() {
         stage = libGDXFactory.createStage()
-        cardRenderer.addActors(stage)
+        imageCards.addActors(stage)
         menuRenderer.addActors(stage)
         Gdx.input.inputProcessor = stage
     }
@@ -44,7 +43,7 @@ class GameScreen(internal var familyMemoryGame: FamilyMemoryGame = FamilyMemoryG
     }
 
     private fun updateGame() {
-        familyMemoryGame.match().ifPresent { cardRenderer.updateCards() }
+        familyMemoryGame.match().ifPresent { imageCards.updateCards() }
         menuRenderer.updateNumberOfTries(familyMemoryGame.numberOfTries)
         if (familyMemoryGame.memoryCompleted()) {
             menuRenderer.updateMemoryCompleted()
@@ -82,7 +81,7 @@ class GameScreen(internal var familyMemoryGame: FamilyMemoryGame = FamilyMemoryG
 
     fun restart(familyMemoryGame: FamilyMemoryGame) {
         this.familyMemoryGame = familyMemoryGame
-        cardRenderer.restart(familyMemoryGame, stage)
+        imageCards.restart(familyMemoryGame, stage)
         menuRenderer.restart()
     }
 

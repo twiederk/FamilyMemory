@@ -14,7 +14,7 @@ internal class GameScreenRestartTest {
     fun restartGame() {
         // Arrange
         val gameScreen = GameScreen(mock())
-        gameScreen.cardRenderer = mock()
+        gameScreen.imageCards = mock()
         gameScreen.menuRenderer = mock()
         gameScreen.stage = mock()
         val newFamilyMemoryGame = FamilyMemoryGame()
@@ -24,7 +24,7 @@ internal class GameScreenRestartTest {
 
         // Assert
         assertThat(gameScreen.familyMemoryGame).isEqualTo(newFamilyMemoryGame)
-        verify(gameScreen.cardRenderer).restart(eq(newFamilyMemoryGame), any())
+        verify(gameScreen.imageCards).restart(eq(newFamilyMemoryGame), any())
         verify(gameScreen.menuRenderer).restart()
     }
 

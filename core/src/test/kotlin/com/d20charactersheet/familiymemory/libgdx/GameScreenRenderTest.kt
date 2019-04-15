@@ -29,17 +29,16 @@ internal class GameScreenRenderTest {
         val back: Drawable = mock()
         val front: Drawable = mock()
         val libGDXFactory: LibGDXFactory = mock {
-            on { createDrawable("0_128.jpg") }.thenReturn(back)
-            on { createDrawable("1_128.jpg") }.thenReturn(front)
-            on { createDrawable("2_128.jpg") }.thenReturn(front)
-            on { createDrawable("3_128.jpg") }.thenReturn(front)
+            on { createDrawable("0.jpg") }.thenReturn(back)
+            on { createDrawable("1.jpg") }.thenReturn(front)
+            on { createDrawable("2.jpg") }.thenReturn(front)
+            on { createDrawable("3.jpg") }.thenReturn(front)
         }
 
         underTest = GameScreen(familyMemoryGame)
         underTest.libGDXFactory = libGDXFactory
         underTest.stage = mock()
-        underTest.cardRenderer = CardRenderer(libGDXFactory)
-        underTest.cardRenderer.buildImageCards(familyMemoryGame)
+        underTest.imageCards = ImageCards(familyMemoryGame, libGDXFactory)
         underTest.menuRenderer = MenuRenderer(libGDXFactory)
         underTest.menuRenderer.numberOfTries = mock()
         underTest.menuRenderer.memoryCompleted = mock()
@@ -50,7 +49,7 @@ internal class GameScreenRenderTest {
     fun `render memory completed`() {
 
         // Arrange
-        underTest.cardRenderer.imageCards.forEach { it.card.state = CardState.OffBoard }
+        underTest.imageCards.imageCards.forEach { it.card.state = CardState.OffBoard }
 
         // Act
         underTest.render(0f)
@@ -61,7 +60,7 @@ internal class GameScreenRenderTest {
             verify(underTest.menuRenderer.memoryCompleted).isVisible = true
             verify(underTest.menuRenderer.newGame).isVisible = true
 
-            verify(Gdx.gl).glClearColor(0f, 0f, 0f, 1f)
+            verify(Gdx.gl).glClearColor(0.33f, 0.33f, 0.81f, 1f)
             verify(Gdx.gl).glClear(GL20.GL_COLOR_BUFFER_BIT)
             verify(underTest.stage).act()
             verify(underTest.stage).draw()
@@ -72,21 +71,21 @@ internal class GameScreenRenderTest {
     fun `match cards = remove matching cards`() {
 
         // Arrange
-        underTest.cardRenderer.imageCards.filter { it.card.imageId == 1 }.forEach { it.flip() }
+        underTest.imageCards.imageCards.filter { it.card.imageId == 1 }.forEach { it.flip() }
 
         // Act
         underTest.render(0f)
 
         // Assert
-        assertThat(underTest.cardRenderer.imageCards.flatMap { it.image.actions }).hasSize(2).satisfies { it is DelayAction }
+        assertThat(underTest.imageCards.imageCards.flatMap { it.image.actions }).hasSize(2).satisfies { it is DelayAction }
     }
 
     @Test
     fun `not matching card = turn cards to facing back`() {
 
         // Arrange
-        val cardWithImage1 = underTest.cardRenderer.imageCards.findLast { it.card.imageId == 1 }!!
-        val cardWithImage2 = underTest.cardRenderer.imageCards.findLast { it.card.imageId == 2 }!!
+        val cardWithImage1 = underTest.imageCards.imageCards.findLast { it.card.imageId == 1 }!!
+        val cardWithImage2 = underTest.imageCards.imageCards.findLast { it.card.imageId == 2 }!!
         cardWithImage1.flip()
         cardWithImage2.flip()
 
@@ -94,7 +93,7 @@ internal class GameScreenRenderTest {
         underTest.render(0f)
 
         // Assert
-        assertThat(underTest.cardRenderer.imageCards.flatMap { it.image.actions }).hasSize(2).satisfies { it is DelayAction }
+        assertThat(underTest.imageCards.imageCards.flatMap { it.image.actions }).hasSize(2).satisfies { it is DelayAction }
     }
 
 

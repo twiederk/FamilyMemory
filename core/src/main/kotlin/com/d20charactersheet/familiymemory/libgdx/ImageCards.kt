@@ -3,15 +3,18 @@ package com.d20charactersheet.familiymemory.libgdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.d20charactersheet.familiymemory.domain.FamilyMemoryGame
 
-class CardRenderer(private val libGDXFactory: LibGDXFactory) {
+class ImageCards(familyMemoryGame: FamilyMemoryGame, private val libGDXFactory: LibGDXFactory) {
 
     internal var imageCards = mutableListOf<ImageCard>()
 
-    fun buildImageCards(familyMemoryGame: FamilyMemoryGame) {
-        val cardSize = familyMemoryGame.getCardSize()
-        val backDrawable = libGDXFactory.createDrawable("0_$cardSize.jpg")
+    init {
+        buildImageCards(familyMemoryGame)
+    }
+
+    private fun buildImageCards(familyMemoryGame: FamilyMemoryGame) {
+        val backDrawable = libGDXFactory.createDrawable("0.jpg")
         imageCards = familyMemoryGame.getCards()
-                .map { ImageCard(familyMemoryGame, it, libGDXFactory.createDrawable("${it.imageId}_$cardSize.jpg"), backDrawable) }
+                .map { ImageCard(familyMemoryGame, it, libGDXFactory.createDrawable("${it.imageId}.jpg"), backDrawable) }
                 .toMutableList()
         imageCards.forEach { it.image.addListener(CardClickListener(this, it)) }
     }
@@ -36,6 +39,5 @@ class CardRenderer(private val libGDXFactory: LibGDXFactory) {
         buildImageCards(familyMemoryGame)
         addActors(stage)
     }
-
 
 }
