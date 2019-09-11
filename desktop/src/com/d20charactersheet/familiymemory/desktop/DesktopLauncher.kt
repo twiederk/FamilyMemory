@@ -11,8 +11,8 @@ object DesktopLauncher {
     fun main(arg: Array<String>) {
         val config = LwjglApplicationConfiguration()
         config.title = "Family Memory"
-        config.width = 720
-        config.height = 960
+        config.width = 1440
+        config.height = 2560
         LwjglApplication(FamilyMemoryMain(LibGDXFactory()), config)
     }
 }

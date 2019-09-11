@@ -85,12 +85,12 @@
   }
   com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
     default: {
-      font: font-big
+      font: font
       up: button
       down: button-down
     }
-    small: {
-      font: font
+    big: {
+      font: font-big
       up: button
       down: button-down
     }
@@ -181,12 +181,12 @@
   }
   com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
     default: {
-      font: font-big
+      font: font
       up: button
       down: button-down
     }
-    small: {
-      font: font
+    big: {
+      font: font-big
       up: button-small
       down: button-small-down
     }

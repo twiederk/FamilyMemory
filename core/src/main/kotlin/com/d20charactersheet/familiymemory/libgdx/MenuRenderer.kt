@@ -33,7 +33,7 @@ class MenuRenderer(private val libGDXFactory: LibGDXFactory) {
 
 
     private fun createNewGame(skin: Skin, gameScreen: GameScreen) {
-        newGame = libGDXFactory.createTextButton("New Game", skin, "small")
+        newGame = libGDXFactory.createTextButton("New Game", skin)
         val x = (Gdx.graphics.width.toFloat() - newGame.width) / 2
         val y = (Gdx.graphics.height.toFloat() - newGame.height) / 2
         newGame.setPosition(x, y)
@@ -70,5 +70,6 @@ class MenuRenderer(private val libGDXFactory: LibGDXFactory) {
         newGame.isVisible = false
     }
 
-
 }
+
+const val FONT_SIZE = "big"

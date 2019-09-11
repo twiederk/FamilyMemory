@@ -20,7 +20,7 @@ class CardBoardTest {
             assertThat(cards[0].x).isEqualTo(32.0f)
             assertThat(cards[0].y).isEqualTo(32.0f)
 
-            assertThat(cards[1].x).isEqualTo(184.0f)
+            assertThat(cards[1].x).isEqualTo(312.0f)
             assertThat(cards[1].y).isEqualTo(32.0f)
         }
 
@@ -38,12 +38,12 @@ class CardBoardTest {
 
             assertThat(cards[0].x).isEqualTo(32.0f)
             assertThat(cards[0].y).isEqualTo(32.0f)
-            assertThat(cards[1].x).isEqualTo(184.0f)
+            assertThat(cards[1].x).isEqualTo(312.0f)
             assertThat(cards[1].y).isEqualTo(32.0f)
             assertThat(cards[2].x).isEqualTo(32.0f)
-            assertThat(cards[2].y).isEqualTo(184.0f)
-            assertThat(cards[3].x).isEqualTo(184.0f)
-            assertThat(cards[3].y).isEqualTo(184.0f)
+            assertThat(cards[2].y).isEqualTo(312.0f)
+            assertThat(cards[3].x).isEqualTo(312.0f)
+            assertThat(cards[3].y).isEqualTo(312.0f)
         }
 
     }

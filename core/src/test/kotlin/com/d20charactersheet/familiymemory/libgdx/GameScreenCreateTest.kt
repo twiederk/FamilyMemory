@@ -24,7 +24,7 @@ internal class GameScreenCreateTest {
         on { createDrawable(any()) }.thenReturn(drawableMock)
         on { createLabel(eq("Number of tries: 0"), any()) }.thenReturn(numberOfTriesMock)
         on { createLabel(eq("Memory Completed!!!"), any()) }.thenReturn(memoryCompletedMock)
-        on { createTextButton(eq("New Game"), any(), eq("small")) }.thenReturn(newGame)
+        on { createTextButton(eq("New Game"), any()) }.thenReturn(newGame)
         on { createStage() }.thenReturn(stageMock)
 
     }
@@ -66,7 +66,7 @@ internal class GameScreenCreateTest {
         verify(underTest.menuRenderer.memoryCompleted).isVisible = false
 
         argumentCaptor<String>().apply {
-            verify(libGDXFactory).createTextButton(capture(), any(), eq("small"))
+            verify(libGDXFactory).createTextButton(capture(), any())
             assertThat(firstValue).isEqualTo("New Game")
         }
         assertThat(underTest.menuRenderer.newGame).isNotNull
@@ -78,9 +78,9 @@ internal class GameScreenCreateTest {
 
     private fun assertImageCards(underTest: GameScreen) {
         assertImageCard(underTest.imageCards.imageCards[0], 32f, 32f)
-        assertImageCard(underTest.imageCards.imageCards[1], 184f, 32f)
-        assertImageCard(underTest.imageCards.imageCards[2], 32f, 184f)
-        assertImageCard(underTest.imageCards.imageCards[3], 184f, 184f)
+        assertImageCard(underTest.imageCards.imageCards[1], 312f, 32f)
+        assertImageCard(underTest.imageCards.imageCards[2], 32f, 312f)
+        assertImageCard(underTest.imageCards.imageCards[3], 312f, 312f)
     }
 
     private fun assertImageCard(imageCard: ImageCard, x: Float, y: Float) {

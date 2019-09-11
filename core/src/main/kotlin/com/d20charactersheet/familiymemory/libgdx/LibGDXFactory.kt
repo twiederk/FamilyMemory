@@ -17,9 +17,9 @@ class LibGDXFactory {
 
     fun createStage(): Stage = Stage()
 
-    fun createLabel(text: String, skin: Skin): Label = Label(text, skin)
+    fun createLabel(text: String, skin: Skin): Label = Label(text, skin, FONT_SIZE)
 
-    fun createTextButton(text: String, skin: Skin, styleName: String) = TextButton(text, skin, styleName)
+    fun createTextButton(text: String, skin: Skin) = TextButton(text, skin, FONT_SIZE)
 
 
 }

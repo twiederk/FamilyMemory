@@ -127,3 +127,7 @@ Thumbs.db
 ToDos.txt
 /misc
 
+## data transfer
+*.home
+*.ing
+

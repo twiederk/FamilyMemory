@@ -17,6 +17,7 @@ class ImageCards(familyMemoryGame: FamilyMemoryGame, private val libGDXFactory: 
                 .map { ImageCard(familyMemoryGame, it, libGDXFactory.createDrawable("${it.imageId}.jpg"), backDrawable) }
                 .toMutableList()
         imageCards.forEach { it.image.addListener(CardClickListener(this, it)) }
+        imageCards.forEach { it.image.setScale(2f) }
     }
 
     fun addActors(stage: Stage) {
