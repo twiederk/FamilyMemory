@@ -19,7 +19,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-eclipse.project {
-    name = appName + "-core"
-}
